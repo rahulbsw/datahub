@@ -91,6 +91,7 @@ const dataset1 = {
         name: 'HDFS',
         type: EntityType.DataPlatform,
         info: {
+            displayName: 'HDFS',
             type: PlatformType.FileSystem,
             datasetNameDelimiter: '.',
             logoUrl: '',
@@ -151,6 +152,18 @@ const dataset1 = {
         ],
     },
     usageStats: null,
+    datasetProfiles: [
+        {
+            timestampMillis: 0,
+            rowCount: 10,
+            columnCount: 5,
+            fieldProfiles: [
+                {
+                    fieldPath: 'testColumn',
+                },
+            ],
+        },
+    ],
 };
 
 const dataset2 = {
@@ -160,6 +173,7 @@ const dataset2 = {
         urn: 'urn:li:dataPlatform:mysql',
         name: 'MySQL',
         info: {
+            displayName: 'MySQL',
             type: PlatformType.RelationalDb,
             datasetNameDelimiter: '.',
             logoUrl: '',
@@ -200,6 +214,24 @@ const dataset2 = {
         },
     },
     usageStats: null,
+    datasetProfiles: [
+        {
+            timestampMillis: 0,
+            rowCount: 10,
+            columnCount: 5,
+            fieldProfiles: [
+                {
+                    fieldPath: 'testColumn',
+                    min: '3',
+                    max: '4',
+                    median: '6',
+                    stdev: '1.2',
+                    nullProportion: 0.56,
+                    sampleValues: ['value1', 'value2', 'value3'],
+                },
+            ],
+        },
+    ],
 };
 
 export const dataset3 = {
@@ -210,6 +242,7 @@ export const dataset3 = {
         urn: 'urn:li:dataPlatform:kafka',
         name: 'Kafka',
         info: {
+            displayName: 'Kafka',
             type: PlatformType.MessageBroker,
             datasetNameDelimiter: '.',
             logoUrl: '',
@@ -268,6 +301,7 @@ export const dataset3 = {
                     type: EntityType.GlossaryTerm,
                     urn: 'urn:li:glossaryTerm:sample-glossary-term',
                     name: 'sample-glossary-term',
+                    hierarchicalName: 'example.sample-glossary-term',
                     glossaryTermInfo: {
                         definition: 'sample definition',
                         termSource: 'sample term source',
@@ -296,6 +330,28 @@ export const dataset3 = {
     editableSchemaMetadata: null,
     deprecation: null,
     usageStats: null,
+    datasetProfiles: [
+        {
+            rowCount: 10,
+            columnCount: 5,
+            timestampMillis: 0,
+            fieldProfiles: [
+                {
+                    fieldPath: 'testColumn',
+                    uniqueCount: 1,
+                    uniqueProportion: 0.129,
+                    nullCount: 2,
+                    nullProportion: 0.56,
+                    min: '3',
+                    max: '4',
+                    mean: '5',
+                    median: '6',
+                    stdev: '1.2',
+                    sampleValues: ['value1', 'value2', 'value3'],
+                },
+            ],
+        },
+    ],
 } as Dataset;
 
 export const dataset4 = {
@@ -474,6 +530,7 @@ const glossaryTerm1 = {
     urn: 'urn:li:glossaryTerm:1',
     type: EntityType.GlossaryTerm,
     name: 'Another glossary term',
+    hierarchicalName: 'example.AnotherGlossaryTerm',
     ownership: {
         owners: [
             {
@@ -1060,6 +1117,30 @@ export const mocks = [
             variables: {
                 input: {
                     query: 't',
+                },
+            },
+        },
+        result: {
+            data: {
+                autoCompleteForAll: {
+                    query: 't',
+                    suggestions: [
+                        {
+                            type: EntityType.Dataset,
+                            suggestions: ['The Great Test Dataset', 'Some other test'],
+                        },
+                    ],
+                },
+            },
+        },
+    },
+    {
+        request: {
+            query: GetAutoCompleteAllResultsDocument,
+            variables: {
+                input: {
+                    query: 't',
+                    limit: 30,
                 },
             },
         },

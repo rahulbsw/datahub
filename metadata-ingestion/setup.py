@@ -32,6 +32,7 @@ base_requirements = {
 
 framework_common = {
     "click>=6.0.0",
+    "click-default-group",
     "PyYAML",
     "toml>=0.10.0",
     "entrypoints",
@@ -41,6 +42,7 @@ framework_common = {
     "avro-python3>=1.8.2",
     "python-dateutil",
     "stackprinter",
+    "tabulate",
 }
 
 kafka_common = {
@@ -77,6 +79,7 @@ plugins: Dict[str, Set[str]] = {
     "athena": sql_common | {"PyAthena[SQLAlchemy]"},
     "bigquery": sql_common | {"pybigquery >= 0.6.0"},
     "bigquery-usage": {"google-cloud-logging", "cachetools"},
+    "dbt": set(),
     "druid": sql_common | {"pydruid>=0.6.2"},
     "feast": {"docker"},
     "glue": aws_common,
@@ -99,6 +102,7 @@ plugins: Dict[str, Set[str]] = {
     "sagemaker": aws_common,
     "snowflake": sql_common | {"snowflake-sqlalchemy<=1.2.4"},
     "snowflake-usage": sql_common | {"snowflake-sqlalchemy<=1.2.4"},
+    "sql-profiles": sql_common | {"great-expectations"},
     "superset": {"requests"},
 }
 
@@ -123,6 +127,7 @@ mypy_stubs = {
     # versions 0.1.13 and 0.1.14 seem to have issues
     "types-click==0.1.12",
     "boto3-stubs[s3,glue,sagemaker]",
+    "types-tabulate",
 }
 
 base_dev_requirements = {
@@ -132,6 +137,7 @@ base_dev_requirements = {
     "black>=19.10b0",
     "coverage>=5.1",
     "flake8>=3.8.3",
+    "flake8-tidy-imports>=4.3.0",
     "isort>=5.7.0",
     "mypy>=0.901",
     "pytest>=6.2.2",
@@ -190,6 +196,7 @@ full_test_dev_requirements = {
             "mssql",
             "mysql",
             "snowflake",
+            "sql-profiles",
         ]
         for dependency in plugins[plugin]
     ),
