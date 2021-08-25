@@ -104,6 +104,8 @@ plugins: Dict[str, Set[str]] = {
     "snowflake-usage": sql_common | {"snowflake-sqlalchemy<=1.2.4"},
     "sql-profiles": sql_common | {"great-expectations"},
     "superset": {"requests"},
+    "trino": sql_common | {"sqlalchemy-trino<=0.3.0.1"},
+    
 }
 
 all_exclude_plugins: Set[str] = {
@@ -230,6 +232,7 @@ entry_points = {
         "snowflake = datahub.ingestion.source.sql.snowflake:SnowflakeSource",
         "snowflake-usage = datahub.ingestion.source.usage.snowflake_usage:SnowflakeUsageSource",
         "superset = datahub.ingestion.source.superset:SupersetSource",
+        "trino = datahub.ingestion.source.sql.trino:TrinoSource",
     ],
     "datahub.ingestion.sink.plugins": [
         "file = datahub.ingestion.sink.file:FileSink",
